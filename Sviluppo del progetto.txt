@@ -1,0 +1,5 @@
+1) Classe Cavallo
+2) Classe CavalliCampo
+3) Classe CorsaCavalli
+4) Campo (grafica)
+4) Campo
