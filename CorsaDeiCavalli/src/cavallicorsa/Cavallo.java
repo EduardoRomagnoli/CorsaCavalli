@@ -72,4 +72,16 @@ public class Cavallo extends JPanel
 		{
 		}
 	}
+	public void setCx(int n) 
+	{
+		cx = n;
+	}
+	public int getCx() 
+	{
+		return cx;
+	}	
+	public void paint(Graphics grafica) 
+	{
+		grafica.drawImage(img,  cx,  cy, null);
+	}
 }
