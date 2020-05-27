@@ -44,7 +44,7 @@ public class CavalliCampo implements Runnable
 	{
 		while((cavalli.getCx()+dim1)<dim2) 
 		{
-			if (conta%15==0) 
+			if (conta%15 == 0) 
 			{
 				velocità=(int)(Math.random()*3+1);
 			}
