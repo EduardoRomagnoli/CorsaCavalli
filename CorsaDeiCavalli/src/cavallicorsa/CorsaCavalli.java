@@ -1,65 +1,67 @@
 //Eduardo Romagnoli 4B-IA
 package cavallicorsa;
 
-import java.awt.Color;
-import java.awt.Dimension;
-import java.awt.Font;
-import java.awt.Graphics;
-import java.awt.Graphics2D;
-import java.awt.GridLayout;
-import java.awt.Image;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
+/** 
+* 
+* @author Eduardo Romagnoli 4B-IA
+*/
+
+import java.awt.*;
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.util.ArrayList;
+import javax.swing.*;
 
 public class CorsaCavalli extends JFrame 
 {
-	public int pos;
-	public Cavallo[] cavalli;
-	public CavalliCampo[] thCavalliCorsa;
-	public Campo pista;
-	Graphics offscreen;
-	Image buffer_virtuale;
-	
-	public static void main(String[] n) 
+	private int pos = 1;
+	private int num = -1;
+	private int i, i2;
+	private int c = 15;
+	private Graphics graf;
+	private Image image;
+	private ArrayList<Cavallo> cavallic;
+	private ArrayList<CavalliCampo> thCavalliCorsa;	
+	private Campo pista;
+
+	public CorsaCavalli(int num) throws Exception 
 	{
-		CorsaCavalli camp = new CorsaCavalli();
-	}
-	
-	public CorsaCavalli() 
-	{
-		setSize(1000, 900);
-		setLocation(10, 40);
-		setDefaultCloseOperation(EXIT_ON_CLOSE);
-		pista = new Campo();
-		cavalli = new Cavallo[8];
-		thCavalliCorsa = new CavalliCampo[8];
-		pos = 1;
-		int partenza = 15;
-		for (int i=0; i<8; i++) 
+		this.num = num;
+		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
+		this.setLocation(0, 0);
+		this.setSize(1000, (105 * num));
+		if (num == 2)
 		{
-			cavalli[i] = new Cavallo(partenza,  i+1);
-			thCavalliCorsa[i] = new CavalliCampo(cavalli[i], this);
-			partenza = partenza+100;			
+			this.setSize(1000, 220);
+		}
+		pista = new Campo();
+		cavallic = new ArrayList<Cavallo>(num);
+		thCavalliCorsa = new ArrayList<CavalliCampo>(num);		
+		for (i = 0; i < num; c += 100, i++) 
+		{
+			cavallic.add(i, new Cavallo(c, (i + 1)));
+			thCavalliCorsa.add(i, new CavalliCampo(cavallic.get(i), this, num, i));
 		}
 		this.add(pista);
-		setVisible(true);
+		this.setVisible(true);
 	}
 	
 	public synchronized int getPos() 
 	{
 		return pos++;
 	}
-	
-	public synchronized void Arrivi() 
+
+	public synchronized void Arrivi(int inum) 
 	{
-		boolean arrivato=true;
-		for (int i=0; i<8; i++) {
-			if (thCavalliCorsa[i].pos == 0) 
+		boolean traguardo = true;
+		for (i = 0; i < inum; i++) 
+		{
+			if (thCavalliCorsa.get(i).getPos() == 0) 
 			{
-				arrivato=false;
+				traguardo = false;
 			}
 		}
-		if(arrivato == true) 
+		if (traguardo == true)
 		{
 			Classifica();
 		}
@@ -67,49 +69,73 @@ public class CorsaCavalli extends JFrame
 	
 	public void Classifica() 
 	{
-		JLabel[] arrivi;
-		arrivi = new JLabel[8];
-		JFrame classifica = new JFrame("Classifica Finale della Corsa");
-		classifica.setSize(600, 400);
-		classifica.setLocation(280, 130);
-		classifica.setBackground(Color.white);
+		JFrame classifica = new JFrame("Classifica corsa dei cavalli");
+		JLabel[] arrivi = new JLabel[num];
+		classifica.setSize(700, 600);
+		classifica.setLocation(250, 100);
+		classifica.setBackground(Color.WHITE);
 		classifica.setDefaultCloseOperation(EXIT_ON_CLOSE);
-		classifica.getContentPane().setLayout(new GridLayout(8,1 ));
-		
-		for(int i=1; i<9; i++) {
-			for (int i2=0; i2<8; i2++) {
-				if (thCavalliCorsa[i2].pos == i)
+		classifica.getContentPane().setLayout(new GridLayout(num, 1));
+		for(int i = 1; i < (num+1); i++) 
+		{
+			for (int i2 = 0; i2 < num; i2++) 
+			{
+				if (thCavalliCorsa.get(i2).getPos() == i)
 				{
-					arrivi[i2] = new JLabel(i+"° Classificato nella corsia numero: " + (i2+1));
-					arrivi[i2].setFont(new Font("Currier New", Font.ITALIC, 20));
-					arrivi[i2].setForeground(Color.black);
+					if(thCavalliCorsa.get(i2).getPos() == 1)
+					{
+						JFrame vincitore = new JFrame("Vincitore - Corsa dei Cavalli");
+						vincitore.setLocation(250, 17);
+						vincitore.setSize(700, 100);
+						vincitore.setDefaultCloseOperation(EXIT_ON_CLOSE);
+						arrivi[i2] = new JLabel("Ha vinto il cavallo che gareggiava nella linea numero: " + (i2 + 1));
+						arrivi[i2].setForeground(Color.BLACK);
+						arrivi[i2].setFont(new Font("CurrierNew", Font.BOLD, 20));
+						vincitore.getContentPane().add(arrivi[i2]);
+						vincitore.setVisible(true);
+					}
+					arrivi[i2] = new JLabel(i + "° Classificato è sulla linea numero " + (i2 + 1) + " Cavallo numero: " + (i2 + 1));
+					arrivi[i2].setForeground(Color.BLACK);
+					arrivi[i2].setFont(new Font("CurrierNew", Font.ITALIC, 20));
 					classifica.getContentPane().add(arrivi[i2]);
 				}
 			}
 		}
 		classifica.setVisible(true);
-	}
+	} 
 	
-	public void update(Graphics grafica) 
+	public void update(Graphics graf2) 
 	{
-		paint(grafica);
+		paint(graf2);
 	}
-	
-	public void paint(Graphics grafica) 
+
+	public void paint(Graphics graf2) 
 	{
-		if (cavalli != null) 
+		Graphics2D graphics2d = (Graphics2D) graf2;
+		image = createImage (1000, (110 * num));
+		graf = image.getGraphics();
+		pista.paint(graf, num);
+		for (i = 0; i < num; i++) 
 		{
-			Graphics2D screen = (Graphics2D) grafica;
-			buffer_virtuale= createImage(1000, 900);
-			offscreen = buffer_virtuale.getGraphics();
-			Dimension d = getSize();
-			pista.paint(offscreen);
-			for (int i=0; i<8; i++) 
-			{
-				cavalli[i].paint(offscreen);
-			}
-			screen.drawImage(buffer_virtuale, 0, 30, this);
-			offscreen.dispose();
+			cavallic.get(i).paint(graf);
 		}
+		graphics2d.drawImage(image, 0, 30, this);
+		graf.dispose();
+	}
+	
+	public static void main(String[] args) throws Exception 
+	{
+		int num;
+		do {
+			try 
+			{
+				String number = JOptionPane.showInputDialog("Inserisci numero dei cavalli che vuoi far gareggiare:");
+				num = Integer.parseInt(number);
+			} catch (Exception e) 
+			{
+				num = -1;
+			}
+		} while (!(num > 1 && num < 11));
+		CorsaCavalli programma = new CorsaCavalli(num);
 	}
 }

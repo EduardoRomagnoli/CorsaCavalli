@@ -1,87 +1,65 @@
 //Eduardo Romagnoli 4B-IA
 package cavallicorsa;
 
-import java.awt.Graphics;
-import java.awt.Image;
-import java.awt.MediaTracker;
-import java.awt.Toolkit;
-import javax.swing.JPanel;
+/** 
+* 
+* @author Eduardo Romagnoli 4B-IA
+*/
+
+import java.awt.*;
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.util.ArrayList;
+import javax.swing.*;
 
 public class Cavallo extends JPanel 
 {
-	int cx;
-	int cy;
-	Image img;
-
-	public Cavallo (int cy2, int cx2) 
+	private int cx2 = 75;
+	private int cy2 = 75;
+	private int cx;
+	private int cy;
+	private Image img;
+	
+	public Cavallo(int cy, int num) throws Exception 
 	{
-		cx = 0;
-		cy = cy2;
-		setSize(80, 81);
-		Toolkit tk = Toolkit.getDefaultToolkit();
-		switch (cx2) 
-		{
-			case 1:
-			{
-				img = tk.getImage("./src/cavallo1.png");
-				break;
-			}
-			case 2: 
-			{
-				img = tk.getImage("./src/cavallo2.png");
-				break;
-			}
-			case 3: 
-			{
-				img = tk.getImage("./src/cavallo3.png");
-				break;
-			}
-			case 4: 
-			{
-				img = tk.getImage("./src/cavallo4.png");
-				break;
-			}
-			case 5: 
-			{
-				img = tk.getImage("./src/cavallo5.png");
-				break;
-			}
-			case 6: 
-			{
-				img = tk.getImage("./src/cavallo6.png");
-				break;
-			}
-			case 7: 
-			{
-				img = tk.getImage("./src/cavallo7.png");
-				break;
-			}
-			case 8: 
-			{
-				img = tk.getImage("./src/cavallo8.png");
-				break;
-			}
-		}
+		this.setSize(cx2, cy2);
+		this.cx = 0;
+		this.cy = cy;
 		MediaTracker mt = new MediaTracker(this);
-		mt.addImage(img, 1);
+		Toolkit tk = Toolkit.getDefaultToolkit();
+		if (!(num < 1 || num > 11)) 
+		{
+			img = tk.getImage("./src/cavallo" + num + ".png");
+		} 
+		else 
+		{
+			throw new Exception("errore numero cavalli");
+		}
+		mt.addImage(img, 0);
 		try 
 		{
-			mt.waitForID(1);
+			mt.waitForID(0);
 		} 
 		catch (Exception e) 
 		{
+			throw new Exception("errore immagine");
 		}
 	}
+	
 	public void setCx(int n) 
 	{
-		cx = n;
+		this.cx = n;
 	}
+	
 	public int getCx() 
 	{
 		return cx;
-	}	
-	public void paint(Graphics grafica) 
-	{
-		grafica.drawImage(img,  cx,  cy, null);
 	}
+	
+	public void paint(Graphics graf) 
+	{
+		graf.drawImage(img, cx, cy, null);
+	}
+	
+
 }
