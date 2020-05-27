@@ -33,10 +33,10 @@ public class Campo extends JPanel
 		}
 		graf.fillRect(950, 0, 15, (100*(num)));
 		graf.setColor(Color.blue);
-		graf.fillRect(30, 0, 5, 800);
-		graf.fillRect(20, 0, 5, 800);
-		graf.fillRect(10, 0, 5, 800);
+		graf.fillRect(30, 0, 5, 1000);
+		graf.fillRect(20, 0, 5, 1000);
+		graf.fillRect(10, 0, 5, 1000);
 		graf.setColor(Color.white);
-		graf.fillRect(955, 0, 5, 800);
+		graf.fillRect(955, 0, 5, 1000);
 	}
 }	

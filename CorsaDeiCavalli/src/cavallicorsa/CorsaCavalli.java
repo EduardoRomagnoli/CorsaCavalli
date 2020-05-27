@@ -41,10 +41,41 @@ public class CorsaCavalli extends JFrame
 		this.num = num;
 		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
 		this.setLocation(0, 0);
-		this.setSize(1000, (105 * num));
 		if (num == 2)
 		{
 			this.setSize(1000, 220);
+		}
+		if (num == 3)
+		{
+			this.setSize(1000, 245);
+		}
+		if (num == 4)
+		{
+			this.setSize(1000, 445);
+		}
+		if (num == 5)
+		{
+			this.setSize(1000, 550);
+		}
+		if (num == 6)
+		{
+			this.setSize(1000, 650);
+		}
+		if (num == 7)
+		{
+			this.setSize(1000, 750);
+		}
+		if (num == 8)
+		{
+			this.setSize(1000, 850);
+		}
+		if (num == 9)
+		{
+			this.setSize(1000, 950);
+		}
+		if (num == 10)
+		{
+			this.setSize(1000, 1050);
 		}
 		pista = new Campo();
 		cavallic = new ArrayList<Cavallo>(num);
