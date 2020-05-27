@@ -12,6 +12,11 @@ import java.io.InputStreamReader;
 import java.util.ArrayList;
 import javax.swing.*;
 
+/** 
+* Classe CavalliCampo, classe che serve per avviare i thread.
+* 
+*/
+
 public class CavalliCampo implements Runnable 
 {
 	private Thread t;
@@ -24,15 +29,27 @@ public class CavalliCampo implements Runnable
 	private int velocità = 1;
 	private int conta = 0;
 
-	public CavalliCampo(Cavallo cav, CorsaCavalli cors, int num, int num2) 
+	/** 
+	* Metodo CavalliCampo, costruttore che si ocupa di preparare i thread
+	* @param cav oggetto di tipo Cavallo, questo oggetto contiene il cavallo registratto su questo thread.
+	* @param cors oggetto di tipo CorsaCavalli, questo oggetto si occupa di creare un'istanza nella quale girerà il nostro programma.
+	* @param num variabile di tipo int, questa rappresenta il numero dei cavalli presenti alla gara.
+	* 
+	*/
+	
+	public CavalliCampo(Cavallo cav, CorsaCavalli cors, int num) 
 	{
 		this.cavalli = cav;
 		this.ippodromo = cors;
 		this.num = num;
 		t = new Thread(this);
-		t.setName("Cavallo - " + (num2+1));
 		t.start();
 	}
+	
+	/** 
+	* Metodo getPos, metodo che si occupa di ritornare la posizione del thread
+	* 
+	*/
 	
 	public int getPos()
 	{
@@ -40,6 +57,12 @@ public class CavalliCampo implements Runnable
 	}
 	
 	@Override
+	
+	/** 
+	* Metodo run, il metodo run è un override che serve per definire il funzionamento dei thread, viene eseguito finchè tutti i cavalli non arrivano al traguardo.
+	*
+	*/
+	
 	public void run()
 	{
 		while((cavalli.getCx()+dim1)<dim2) 

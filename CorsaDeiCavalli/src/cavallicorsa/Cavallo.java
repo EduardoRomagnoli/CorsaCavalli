@@ -12,6 +12,10 @@ import java.io.InputStreamReader;
 import java.util.ArrayList;
 import javax.swing.*;
 
+/** 
+* Classe "Cavallo", si occupa di disegnare e aggiornare la posizione dei cavalli nel campo 
+*/
+
 public class Cavallo extends JPanel 
 {
 	private int cx2 = 75;
@@ -19,6 +23,11 @@ public class Cavallo extends JPanel
 	private int cx;
 	private int cy;
 	private Image img;
+	
+	/** 
+	* Costruttore della Classe "Cavallo": richiede in input la posizione y del cavallo e il "num" che equivale al numero dei cavalli che l'utente vuole far gareggiare.
+	* @throws Questa eccezione viene inviata solamente quando si presentano degli errori relativi ai cavalli e all'inserimento delle immagini.
+	*/
 	
 	public Cavallo(int cy, int num) throws Exception 
 	{
@@ -46,15 +55,32 @@ public class Cavallo extends JPanel
 		}
 	}
 	
+	/** 
+	* Metodo che serve per settare la posizione x del cavallo.
+	* @param n variabile di tipo intero da settare.
+	* 
+	*/
+	
 	public void setCx(int n) 
 	{
 		this.cx = n;
 	}
 	
+	/** 
+	* Metodo per ottenere la posizione x del cavallo.
+	* 
+	*/
+	
 	public int getCx() 
 	{
 		return cx;
 	}
+	
+	/** 
+	* Metodo che disegna l'immagine man mano che si sposta nella pista.
+	* @param graf è l'oggetto di tipo Graphics che si occuperò di disegnare i nostri cavalli nel campo
+	* 
+	*/
 	
 	public void paint(Graphics graf) 
 	{
