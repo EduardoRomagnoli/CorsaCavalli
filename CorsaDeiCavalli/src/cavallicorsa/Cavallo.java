@@ -18,8 +18,6 @@ import javax.swing.*;
 
 public class Cavallo extends JPanel 
 {
-	private int cx2 = 75;
-	private int cy2 = 75;
 	private int cx;
 	private int cy;
 	private Image img;
@@ -31,7 +29,7 @@ public class Cavallo extends JPanel
 	
 	public Cavallo(int cy, int num) throws Exception 
 	{
-		this.setSize(cx2, cy2);
+		this.setSize(80, 80);
 		this.cx = 0;
 		this.cy = cy;
 		MediaTracker mt = new MediaTracker(this);
