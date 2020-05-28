@@ -43,7 +43,7 @@ public class CorsaCavalli extends JFrame
 		this.setLocation(0, 0);
 		if (num == 2)
 		{
-			this.setSize(1000, 220);
+			this.setSize(1000, 245);
 		}
 		if (num == 3)
 		{
